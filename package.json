@@ -4,14 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build index.html"
+    "dev": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html"
   },
   "keywords": [],
   "author": "ochuzor",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@ochuzor/todo.txt-parser": "^2.2.0",
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.15",
+    "popper.js": "^1.16.1"
+  },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1",
     "parcel-bundler": "^1.12.4"
   }
 }
