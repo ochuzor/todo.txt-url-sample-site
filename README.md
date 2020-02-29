@@ -8,4 +8,4 @@ This is a sample webpage for my todo.txt libs. The repos for the libs are
 
 This sample repo contains an usage example for storing todo.txt items in the url. To develop, clone the repo and run ```npm i``` and then ```npm run dev```.
 
-You can play with it on: [url-todo-app](https://url-todo-app.surge.sh/)
+You can play with it on: [url-todo-app](https://url-todo-app.surge.sh/). Take your todos with you by copying the url.
