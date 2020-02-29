@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html"
+    "build": "parcel build ./src/index.html",
+    "deploy-surge": "surge ./dist --domain https://url-todo-app.surge.sh/",
+    "surge": "surge"
   },
   "keywords": [],
   "author": "ochuzor",
@@ -21,6 +23,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.12.1",
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.4",
+    "surge": "^0.21.3"
   }
 }
