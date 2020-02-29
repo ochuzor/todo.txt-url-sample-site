@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="./style.css">
     </head>
     <body>
-        <div class="container">
+        <div class="container-md">
             <div class="row">
                 <div class="col">
                     <div class="page-header">
@@ -18,18 +18,26 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-md-10 center-block">
                     <input type="text" class="form-control form-control-lg sticky-top" id="oc-todo-search-box" placeholder="search">
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-md-10" id="oc-todo-lst-cntr">
                     <!-- <div class="oc-todo-itm">x add a new project description</div>
                     <div class="oc-todo-itm">(B) call the housing company about the bathroom leak</div>
                     <div class="oc-todo-itm">x (E) staart a new season of lost</div>
                     <div class="oc-todo-itm">x 2020-01-20 prepre for the client interview</div> -->
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-10 d-flex flex-row-reverse">
+                    <button data-target="#oc-edit-todo-modal" data-toggle="modal"
+                         type="button" class="btn btn-primary btn-lg " 
+                        id="oc-new-todo-btn">+</button>
                 </div>
             </div>
 
@@ -59,14 +67,6 @@
                   </div>
                 </div>
             </div> <!-- end modal -->
-
-            <div class="row">
-                <div class="col-md-10 center-block">
-                    <button data-target="#oc-edit-todo-modal" data-toggle="modal"
-                         type="button" class="btn btn-primary btn-lg btn-block" 
-                        id="oc-new-todo-btn">+</button>
-                </div>
-            </div>
         </div>
 
         <script src="./index.js"></script>
