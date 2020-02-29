@@ -1,1 +1,0 @@
-{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"style.e308ff8e.css","sourceRoot":"..\\src","sourcesContent":["\r\n.oc-todo-itm {\r\n    font-size: 16pt;\r\n    padding: 3px;\r\n    margin-bottom: 3px;\r\n}\r\n\r\n.oc-todo-itm:hover {\r\n    font-size: 22pt;\r\n    cursor: pointer;\r\n}\r\n"]}
