@@ -38435,9 +38435,9 @@ exports.FuseJsTodoIndexer = FuseJsTodoIndexer;
 'use strict';
 
 if ("development" === 'production') {
-  module.exports = require('./todo.txt-indexer.cjs.production.min.js');
+  module.exports = require('./todo.txt-indexer.cjs.production.min.js.js');
 } else {
-  module.exports = require('./todo.txt-indexer.cjs.development.js');
+  module.exports = require('./todo.txt-indexer.cjs.development.js.js');
 }
 },{"./todo.txt-indexer.cjs.development.js":"../node_modules/@ochuzor/todo.txt-indexer/dist/todo.txt-indexer.cjs.development.js"}],"../node_modules/parcel-bundler/src/builtins/_empty.js":[function(require,module,exports) {
 
