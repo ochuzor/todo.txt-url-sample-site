@@ -26,6 +26,7 @@ $(function () {
     const todoSaveBtn = $('#oc-todo-save-btn');
     const detailsCntr = $('#oc-todo-details-cntr');
     const editTodoModal = $('#oc-edit-todo-modal');
+    const todoDeleteBtn = $('#oc-todo-delete-btn');
 
     const allTodos = db.getAll();
 
@@ -79,6 +80,14 @@ $(function () {
 
         saveTodo({text: todoTxtEdit.val(), id});
         editTodoModal.modal('hide');
+    });
+
+    todoDeleteBtn.click(function () {
+        let id = todoTxtEdit.attr('data-todo-id');
+        if (!_.isEmpty(id) && confirm('Are you sure you want to delete?')) {
+            deleteTodo(parseInt(id, 10));
+            editTodoModal.modal('hide');
+        }
     });
 
     todoTxtEdit.on('input', _.debounce(onTodoTextChange, 250, { 'maxWait': 1000 }));
