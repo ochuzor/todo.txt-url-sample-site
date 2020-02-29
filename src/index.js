@@ -1,3 +1,5 @@
+'use strict';
+
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css' // Import precompiled Bootstrap css
 import '@fortawesome/fontawesome-free/css/all.css'
@@ -22,6 +24,9 @@ $(function () {
     const searchBox = $('#oc-todo-search-box');
     const todoSaveBtn = $('#oc-todo-save-btn');
     const detailsCntr = $('#oc-todo-details-cntr');
+    const editTodoModal = $('#oc-edit-todo-modal');
+
+    const allTodos = sampleTodos.map((text, i) => ({id: i+1, text}));
 
     const compiled = _.template('<% _.forEach(todos, function(todo, i) { %><div data-toggle="modal" data-target="#oc-edit-todo-modal" data-todo-text="${ todo.text }" todo-id="${ todo.id }" class="oc-todo-itm">${ todo.text }</div><% }); %>');
     
@@ -30,26 +35,27 @@ $(function () {
         lstCntr.html(todos);
     }
 
-    renderTodoList(sampleTodos.map((text, i) => ({id: i+1, text})));
+    renderTodoList(allTodos);
 
-    $('.oc-todo-itm').click(function() {
+    lstCntr.on('click', '.oc-todo-itm', function() {
         const id = $(this).attr('todo-id');
-        const todoTxt = $(this).text();
-        todoTxtEdit.val(todoTxt);
-        displayTodoDetails(todoTxt);
-        console.log('id: ' + id)
+        const text = $(this).text();
+        todoTxtEdit.val(text);
+        setTodoEdit({text, id});
     });
 
     function onTodoTextChange() {
-        // const val = $(this).val();
-        // const data = _.pickBy(textToIndexDto(val), _.identity);
-        // displayTodoDetails(data);
         displayTodoDetails($(this).val());
     }
 
     function onTodoSearch() {
         const val = $(this).val();
-        console.log('search for:', val);
+        const ls = _.isEmpty(val) ? allTodos : doSearch(val);
+        renderTodoList(ls);
+    }
+
+    function doSearch(val) {
+        return _.sampleSize(allTodos, _.random(1, allTodos.length));
     }
 
     const todoDetailItemComponentString = `<div>
@@ -62,17 +68,37 @@ $(function () {
         const data = _.pickBy(textToIndexDto(todoText), _.identity);
         const _data = _.omit(data, ['text'])
         const html = _.reduce(_data, (acc, value, key) => {
-            return acc + todoDetailItemComponent({label: key, value});
+            return acc + todoDetailItemComponent({label: _.startCase(key), value});
         }, '');
         detailsCntr.html(html);
     }
 
+    function nextId() {
+        return (sampleTodos.length + 1) + '';
+    }
+
     todoSaveBtn.click(function() {
-        console.log('saving...', todoTxtEdit.val())
+        let id = todoTxtEdit.attr('data-todo-id');
+        if (_.isEmpty(id)) id = nextId();
+        const todo = {text: todoTxtEdit.val(), id};
+        editTodoModal.modal('hide');
+        onTodoSearch();
     });
 
     todoTxtEdit.on('input', _.debounce(onTodoTextChange, 250, { 'maxWait': 1000 }));
     searchBox.on('input', _.debounce(onTodoSearch, 250, { 'maxWait': 1000 }));
 
-    function render() {}
+    editTodoModal.on('shown.bs.modal', function () {
+        todoTxtEdit.focus();
+    });
+
+    editTodoModal.on('hidden.bs.modal', function () {
+        setTodoEdit({text: '', id: ''});
+    });
+
+    function setTodoEdit(todo) {
+        todoTxtEdit.val(todo.text);
+        todoTxtEdit.attr('data-todo-id', todo.id);
+        displayTodoDetails(todo.text);
+    }
 });
