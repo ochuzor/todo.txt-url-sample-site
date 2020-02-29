@@ -6,7 +6,7 @@ const store = new UrlTodoStore();
 
 const db = new TodoDb(indexer, store);
 
-store.readData().forEach(todoDoc => db.addDoc(todoDoc));
+store.readData().forEach(todoDoc => indexer.addDoc(todoDoc));
 
 function nextId() {
     return db.getAll().length + 1;

@@ -53,8 +53,8 @@ $(function () {
         renderTodoList(ls);
     }
 
-    function doSearch(val) {
-        return _.sampleSize(allTodos, _.random(1, allTodos.length));
+    function doSearch(str) {
+        return db.search(str);
     }
 
     const todoDetailItemComponentString = `<div>
