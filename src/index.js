@@ -1,14 +1,15 @@
 'use strict';
 
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.css' // Import precompiled Bootstrap css
-import '@fortawesome/fontawesome-free/css/all.css'
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css'; // Import precompiled Bootstrap css
+import '@fortawesome/fontawesome-free/css/all.css';
 
 import $ from 'jquery';
 import _ from 'lodash';
 import {textToIndexDto} from '@ochuzor/todo.txt-parser';
 
 import sampleTodos from './sample-todos';
+import db, {nextId} from './db';
 
 function t(s,d){
     for(var p in d)
@@ -26,7 +27,7 @@ $(function () {
     const detailsCntr = $('#oc-todo-details-cntr');
     const editTodoModal = $('#oc-edit-todo-modal');
 
-    const allTodos = sampleTodos.map((text, i) => ({id: i+1, text}));
+    const allTodos = db.getAll();
 
     const compiled = _.template('<% _.forEach(todos, function(todo, i) { %><div data-toggle="modal" data-target="#oc-edit-todo-modal" data-todo-text="${ todo.text }" todo-id="${ todo.id }" class="oc-todo-itm">${ todo.text }</div><% }); %>');
     
@@ -34,8 +35,6 @@ $(function () {
         const todos = compiled({ todos: lsTodos });
         lstCntr.html(todos);
     }
-
-    renderTodoList(allTodos);
 
     lstCntr.on('click', '.oc-todo-itm', function() {
         const id = $(this).attr('todo-id');
@@ -73,16 +72,14 @@ $(function () {
         detailsCntr.html(html);
     }
 
-    function nextId() {
-        return (sampleTodos.length + 1) + '';
-    }
-
     todoSaveBtn.click(function() {
         let id = todoTxtEdit.attr('data-todo-id');
         if (_.isEmpty(id)) id = nextId();
-        const todo = {text: todoTxtEdit.val(), id};
+        else id = parseInt(id, 10);
+
+        saveTodo({text: todoTxtEdit.val(), id});
         editTodoModal.modal('hide');
-        onTodoSearch();
+        searchBox.trigger('input');
     });
 
     todoTxtEdit.on('input', _.debounce(onTodoTextChange, 250, { 'maxWait': 1000 }));
@@ -101,4 +98,15 @@ $(function () {
         todoTxtEdit.attr('data-todo-id', todo.id);
         displayTodoDetails(todo.text);
     }
+
+    function saveTodo(todo) {
+        if (!todo.id) todo.id = nextId();
+        db.addDoc(todo);
+        allTodos.length = 0;
+        Array.prototype.push.apply(allTodos, db.getAll());
+    }
+
+    (function run() {
+        renderTodoList(allTodos);
+    })();
 });
