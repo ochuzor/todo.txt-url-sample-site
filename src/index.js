@@ -79,7 +79,6 @@ $(function () {
 
         saveTodo({text: todoTxtEdit.val(), id});
         editTodoModal.modal('hide');
-        searchBox.trigger('input');
     });
 
     todoTxtEdit.on('input', _.debounce(onTodoTextChange, 250, { 'maxWait': 1000 }));
@@ -100,10 +99,19 @@ $(function () {
     }
 
     function saveTodo(todo) {
-        if (!todo.id) todo.id = nextId();
         db.addDoc(todo);
+        refreshTodoList();
+    }
+
+    function deleteTodo(id) {
+        db.deleteDoc(id);
+        refreshTodoList();
+    }
+
+    function refreshTodoList() { 
         allTodos.length = 0;
         Array.prototype.push.apply(allTodos, db.getAll());
+        searchBox.trigger('input');
     }
 
     (function run() {
