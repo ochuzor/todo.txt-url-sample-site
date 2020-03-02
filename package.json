@@ -13,9 +13,9 @@
   "author": "ochuzor",
   "license": "ISC",
   "dependencies": {
-    "@ochuzor/todo.txt-indexer": "^1.0.0",
-    "@ochuzor/todo.txt-parser": "^2.2.0",
-    "@ochuzor/todo.txt-store": "^3.0.0",
+    "@ochuzor/todo.txt-indexer": "^2.1.0",
+    "@ochuzor/todo.txt-parser": "^3.2.0",
+    "@ochuzor/todo.txt-store": "^3.1.0",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
