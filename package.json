@@ -1,7 +1,7 @@
 {
   "name": "todo.txt-url-sample-site",
   "version": "1.0.0",
-  "description": "",
+  "description": "a sample site for my todo.txt libraries",
   "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
@@ -13,7 +13,7 @@
   "author": "ochuzor",
   "license": "ISC",
   "dependencies": {
-    "@ochuzor/todo.txt-indexer": "^2.1.0",
+    "@ochuzor/todo.txt-indexer": "^3.1.0",
     "@ochuzor/todo.txt-parser": "^3.2.0",
     "@ochuzor/todo.txt-store": "^3.1.0",
     "bootstrap": "^4.4.1",
