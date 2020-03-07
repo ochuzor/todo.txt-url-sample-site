@@ -13,6 +13,7 @@
   "author": "ochuzor",
   "license": "ISC",
   "dependencies": {
+    "@ochuzor/todo.txt-export": "^0.3.0",
     "@ochuzor/todo.txt-indexer": "^3.1.0",
     "@ochuzor/todo.txt-parser": "^3.2.0",
     "@ochuzor/todo.txt-store": "^3.1.0",
