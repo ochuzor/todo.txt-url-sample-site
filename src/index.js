@@ -9,7 +9,7 @@ import _ from 'lodash';
 import {textToIndexDto} from '@ochuzor/todo.txt-parser';
 
 import sampleTodos from './sample-todos';
-import db, {nextId} from './db';
+import db, {nextId, urlExporter, webFileExporter} from './db';
 
 function t(s,d){
     for(var p in d)
@@ -27,12 +27,18 @@ $(function () {
     const detailsCntr = $('#oc-todo-details-cntr');
     const editTodoModal = $('#oc-edit-todo-modal');
     const todoDeleteBtn = $('#oc-todo-delete-btn');
+    const exportUrlBtn = $('#oc-export-url-btn');
+    const exportTextFileBtn = $('#oc-export-txt-file-btn');
+    const urlExportResultModal = $('#oc-export-url-result');
+    const urlExportResultLink = $('#oc-url-export-lnk');
 
     const allTodos = db.getAll();
+    let currentRenderedList = [];
 
     const compiled = _.template('<% _.forEach(todos, function(todo, i) { %><div data-toggle="modal" data-target="#oc-edit-todo-modal" data-todo-text="${ todo.text }" todo-id="${ todo.id }" class="oc-todo-itm">${ todo.text }</div><% }); %>');
     
     function renderTodoList(lsTodos) {
+        currentRenderedList = lsTodos;
         const todos = compiled({ todos: lsTodos });
         lstCntr.html(todos);
     }
@@ -121,6 +127,23 @@ $(function () {
         allTodos.length = 0;
         Array.prototype.push.apply(allTodos, db.getAll());
         searchBox.trigger('input');
+    }
+
+    exportUrlBtn.click(exportUrl);
+    exportTextFileBtn.click(exportTextFile);
+
+    urlExportResultModal.on('hidden.bs.modal', function () {
+        urlExportResultLink.attr('href', '#');
+    });
+
+    function exportUrl() {
+        const val = urlExporter.export(currentRenderedList);
+        urlExportResultLink.attr('href', val.href);
+        urlExportResultModal.modal('show');
+    }
+
+    function exportTextFile() {
+        webFileExporter.export(currentRenderedList);
     }
 
     (function run() {

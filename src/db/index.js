@@ -6,7 +6,7 @@ const indexer = new FuseJsTodoIndexer();
 const encoder =  JsonEncoder.FromStringEcoder(new B64Ecoder());
 const store = new UrlTodoStore(window.location, encoder);
 
-const exporter = new UrlTodoExporter(window.location.origin, encoder);
+const urlExporter = new UrlTodoExporter(window.location.origin, encoder);
 const webFileExporter = new WebFileExporter('todo.txt', new StringTodoExporter());
 
 // const ls = [{id: 1, text: 'its a good show @computer'}, {id: 2, text: '(B) Schedule Goodwill pickup +GarageSale @phone'}];
@@ -21,5 +21,5 @@ function nextId() {
     return db.getAll().length + 1;
 }
 
-export { nextId, exporter, webFileExporter };
+export { nextId, urlExporter, webFileExporter };
 export default db;
