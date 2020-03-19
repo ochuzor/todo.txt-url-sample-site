@@ -9,16 +9,16 @@ const store = new UrlTodoStore(window.location, encoder);
 const urlExporter = new UrlTodoExporter(window.location.origin, encoder);
 const webFileExporter = new WebFileExporter('todo.txt', new StringTodoExporter());
 
-// const ls = [{id: 1, text: 'its a good show @computer'}, {id: 2, text: '(B) Schedule Goodwill pickup +GarageSale @phone'}];
-// console.log(exporter.export(ls))
-// webFileExporter.export(ls);
-
 const db = new TodoDb(indexer, store);
 
 store.readData().forEach(todoDoc => indexer.addDoc(todoDoc));
 
 function nextId() {
-    return db.getAll().length + 1;
+    const maxId = db.getAll().reduce((currentMax, doc) => {
+        const id = parseInt(doc.id, 10);
+        return !!id && (id < currentMax) ? currentMax : id;
+    }, 1);
+    return maxId + 1;
 }
 
 export { nextId, urlExporter, webFileExporter };
