@@ -23,7 +23,6 @@ $(function () {
     const todoTxtEdit = $('#oc-todo-text-edit');
     const lstCntr = $('#oc-todo-lst-cntr');
     const searchBox = $('#oc-todo-search-box');
-    const todoSaveBtn = $('#oc-todo-save-btn');
     const detailsCntr = $('#oc-todo-details-cntr');
     const editTodoModal = $('#oc-edit-todo-modal');
     const todoDeleteBtn = $('#oc-todo-delete-btn');
@@ -31,6 +30,7 @@ $(function () {
     const exportTextFileBtn = $('#oc-export-txt-file-btn');
     const urlExportResultModal = $('#oc-export-url-result');
     const urlExportResultLink = $('#oc-url-export-lnk');
+    const editTodoForm = $('#oc-edit-todo-form');
 
     const allTodos = db.getAll();
     let currentRenderedList = [];
@@ -79,13 +79,14 @@ $(function () {
         detailsCntr.html(html);
     }
 
-    todoSaveBtn.click(function() {
+    editTodoForm.submit(function(event) {
         let id = todoTxtEdit.attr('data-todo-id');
         if (_.isEmpty(id)) id = nextId();
         else id = parseInt(id, 10);
 
         saveTodo({text: todoTxtEdit.val(), id});
         editTodoModal.modal('hide');
+        event.preventDefault();
     });
 
     todoDeleteBtn.click(function () {
